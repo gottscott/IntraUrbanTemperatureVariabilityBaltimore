@@ -5,7 +5,7 @@ The notebook pulls in data listed in the data/ directory and relies on two pytho
 
 Plots are saved in the plots/ folder of the same name (not tested). 
 
-The notebook pulls in data listed in the data/ directory and relies on two python files for plotting utilities, ibuttonplots.py and spatialfunctions.py. 
+The notebook pulls in data listed in the data/ directory and relies on two python files for plotting utilities, ibuttonplots.py and spatialfunctions.py. Data is saved on my work machine as well as in my ~/git/ directory on Blaustein (blaustein.eps.jhu.edu). If you are not me and are reading this, data is available on request at ascott47@jhu.edu . 
 
 Plots are saved in the plots/ folder.  
 
