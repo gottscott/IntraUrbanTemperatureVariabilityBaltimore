@@ -1,4 +1,4 @@
-#s functions
+#ss functions
 from osgeo import ogr, osr
 import os
 from shapely.geometry import Point
@@ -177,7 +177,7 @@ def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none')
                 elevation[i] = data.sum()/area
             #print layer.GetRasterBand(1).ReadAsArray(rasterx,rastery, 1, 1)
         else:
-            print 'missing data at ', i
+            print('missing data at ', i)
         i = i+1
 
     return elevation
@@ -243,9 +243,9 @@ def map_data(data, lat,lon, shapefiles = 'none',utmzone=18):
     
     # first, check that lat, lon, and data all same size
     if lat.shape != lon.shape : 
-        print 'Lat and lon data shape do not match' 
+        print('Lat and lon data shape do not match') 
     elif lat.shape != data.shape : 
-        print 'Lat/lon & data shape do not match'
+        print('Lat/lon & data shape do not match')
         
     # set up figures and axes    
     plt.figure(figsize=[15,15])
