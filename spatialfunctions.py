@@ -136,6 +136,11 @@ def reproject_shapefile(fname,outfilename,outProjection = "WGS84"):
 
 
 def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none'):
+    # X = lon
+    # Y = lat
+    # x_radius =1
+    # y_radius=1
+    how = 'none'
     sourceEPSG = 4326
     sourceProj = osr.SpatialReference()
     sourceProj.ImportFromEPSG(sourceEPSG)
@@ -152,10 +157,10 @@ def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none')
     elevation = np.zeros(X.shape[0])
     src = layer.GetRasterBand(1)
     i = 0
-    for x,y in zip(X,Y):
-        if ~np.isnan(x) & ~np.isnan(y):
+    for xx,yy in zip(X,Y):
+        if ~np.isnan(xx) & ~np.isnan(yy):
             point = ogr.Geometry(ogr.wkbPoint)
-            point.AddPoint(x,y)
+            point.AddPoint(xx,yy)
         # reproject the lat/lon point to the projection of the raster data
             point.Transform(transform)
 
@@ -164,9 +169,11 @@ def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none')
 
             rasterx = int((x - gt[0]) / gt[1])
             rastery = int((y - gt[3]) / gt[5])
-
+        else: 
+            elevation[i] = np.nan
+        if (rasterx > 0) & (rastery> 0): 
             data = src.ReadAsArray(rasterx,rastery, win_xsize=x_radius, win_ysize=y_radius)
-            if data.shape == (1,1) : 
+            if data.shape == (1,1) :
                 elevation[i] = data
             elif how == 'mean' : # mean of raster data, eg, average number of trees for a given buffer
                 elevation[i] = data.mean()
@@ -178,9 +185,8 @@ def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none')
             #print layer.GetRasterBand(1).ReadAsArray(rasterx,rastery, 1, 1)
         else:
             print('missing data at ', i)
+            elevation[i] = np.nan
         i = i+1
-
-    return elevation
 
 def compute_distance_to_feature(X,Y,feature_file, feature_name = 'none', calculationProjection = 6347):
 # compute distance from an array of lons/lats to a feature
