@@ -140,7 +140,7 @@ def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none')
     # Y = lat
     # x_radius =1
     # y_radius=1
-    how = 'none'
+    #how = 'none'
     sourceEPSG = 4326
     sourceProj = osr.SpatialReference()
     sourceProj.ImportFromEPSG(sourceEPSG)
@@ -187,6 +187,7 @@ def extract_raster_values(X,Y, rasterfile,x_radius =1, y_radius=1, how = 'none')
             print('missing data at ', i)
             elevation[i] = np.nan
         i = i+1
+    return elevation
 
 def compute_distance_to_feature(X,Y,feature_file, feature_name = 'none', calculationProjection = 6347):
 # compute distance from an array of lons/lats to a feature
